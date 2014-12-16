@@ -176,4 +176,10 @@
     return cell;
 }
 
+- (void)dealloc{
+    if (_timer) {
+        [_timer invalidate];
+    }
+}
+
 @end
