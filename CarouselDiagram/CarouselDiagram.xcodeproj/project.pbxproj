@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B09FCAD1A3FC4670037A525 /* CarouselDiagramView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B09FCAC1A3FC4670037A525 /* CarouselDiagramView.m */; };
+		4B09FCB01A3FD7DF0037A525 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B09FCAF1A3FD7DF0037A525 /* NSTimer+Addition.m */; };
 		4B47A46F1A3E945800714878 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47A46E1A3E945800714878 /* main.m */; };
 		4B47A4721A3E945800714878 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47A4711A3E945800714878 /* AppDelegate.m */; };
 		4B47A4751A3E945800714878 /* CarouselDiagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4B47A4731A3E945800714878 /* CarouselDiagram.xcdatamodeld */; };
@@ -15,7 +17,6 @@
 		4B47A47D1A3E945800714878 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B47A47C1A3E945800714878 /* Images.xcassets */; };
 		4B47A4801A3E945800714878 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B47A47E1A3E945800714878 /* LaunchScreen.xib */; };
 		4B47A48C1A3E945800714878 /* CarouselDiagramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B47A48B1A3E945800714878 /* CarouselDiagramTests.m */; };
-		4BBC7DFA1A3EA67F008D5240 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBC7DF91A3EA67F008D5240 /* PageViewController.m */; };
 		4BBC7DFD1A3EAAF9008D5240 /* CarouseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBC7DFC1A3EAAF9008D5240 /* CarouseCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B09FCAB1A3FC4670037A525 /* CarouselDiagramView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarouselDiagramView.h; sourceTree = "<group>"; };
+		4B09FCAC1A3FC4670037A525 /* CarouselDiagramView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarouselDiagramView.m; sourceTree = "<group>"; };
+		4B09FCAE1A3FD7DF0037A525 /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
+		4B09FCAF1A3FD7DF0037A525 /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
 		4B47A4691A3E945800714878 /* CarouselDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarouselDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B47A46D1A3E945800714878 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B47A46E1A3E945800714878 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -44,8 +49,6 @@
 		4B47A4851A3E945800714878 /* CarouselDiagramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarouselDiagramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B47A48A1A3E945800714878 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B47A48B1A3E945800714878 /* CarouselDiagramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarouselDiagramTests.m; sourceTree = "<group>"; };
-		4BBC7DF81A3EA67F008D5240 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
-		4BBC7DF91A3EA67F008D5240 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
 		4BBC7DFB1A3EAAF9008D5240 /* CarouseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarouseCollectionViewCell.h; sourceTree = "<group>"; };
 		4BBC7DFC1A3EAAF9008D5240 /* CarouseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarouseCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,6 +92,8 @@
 		4B47A46B1A3E945800714878 /* CarouselDiagram */ = {
 			isa = PBXGroup;
 			children = (
+				4B09FCAE1A3FD7DF0037A525 /* NSTimer+Addition.h */,
+				4B09FCAF1A3FD7DF0037A525 /* NSTimer+Addition.m */,
 				4B47A4701A3E945800714878 /* AppDelegate.h */,
 				4B47A4711A3E945800714878 /* AppDelegate.m */,
 				4B47A4761A3E945800714878 /* ViewController.h */,
@@ -98,10 +103,10 @@
 				4B47A47E1A3E945800714878 /* LaunchScreen.xib */,
 				4B47A4731A3E945800714878 /* CarouselDiagram.xcdatamodeld */,
 				4B47A46C1A3E945800714878 /* Supporting Files */,
-				4BBC7DF81A3EA67F008D5240 /* PageViewController.h */,
-				4BBC7DF91A3EA67F008D5240 /* PageViewController.m */,
 				4BBC7DFB1A3EAAF9008D5240 /* CarouseCollectionViewCell.h */,
 				4BBC7DFC1A3EAAF9008D5240 /* CarouseCollectionViewCell.m */,
+				4B09FCAB1A3FC4670037A525 /* CarouselDiagramView.h */,
+				4B09FCAC1A3FC4670037A525 /* CarouselDiagramView.m */,
 			);
 			path = CarouselDiagram;
 			sourceTree = "<group>";
@@ -237,8 +242,9 @@
 				4B47A46F1A3E945800714878 /* main.m in Sources */,
 				4B47A4781A3E945800714878 /* ViewController.m in Sources */,
 				4BBC7DFD1A3EAAF9008D5240 /* CarouseCollectionViewCell.m in Sources */,
-				4BBC7DFA1A3EA67F008D5240 /* PageViewController.m in Sources */,
 				4B47A4751A3E945800714878 /* CarouselDiagram.xcdatamodeld in Sources */,
+				4B09FCB01A3FD7DF0037A525 /* NSTimer+Addition.m in Sources */,
+				4B09FCAD1A3FC4670037A525 /* CarouselDiagramView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

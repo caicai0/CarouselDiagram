@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CarouseCollectionViewCell : UICollectionViewCell
-@property (nonatomic, strong)NSString * title;
+@property (nonatomic, strong)NSString * model;
 @end

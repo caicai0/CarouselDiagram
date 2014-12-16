@@ -17,6 +17,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor redColor];
         self.titleLabel = [[UILabel alloc]init];
         self.titleLabel.frame = CGRectMake(0, 0, 100, 50);
         [self.contentView addSubview:self.titleLabel];
@@ -24,15 +25,15 @@
     return self;
 }
 
-- (void)setTitle:(NSString *)title{
-    if ([title isKindOfClass:[NSString class]]) {
-        _title = title;
+- (void)setModel:(NSString *)model{
+    if ([model isKindOfClass:[NSString class]]) {
+        _model = model;
     }
     [self updateInfo];
 }
 
 - (void)updateInfo{
-    self.titleLabel.text = self.title;
+    self.titleLabel.text = self.model;
 }
 
 @end
