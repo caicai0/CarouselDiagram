@@ -22,7 +22,15 @@
     [self.view addSubview:view];
     
     view.cellClass = [CarouseCollectionViewCell class];
-    view.datas = @[@"1",@"2",@"3"];
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (int i=0; i<10; i++) {
+        [arr addObject:[NSString stringWithFormat:@"%d",i]];
+    }
+    view.datas = arr;
+    view.nonDataModel = @"nodataModel";
+    view.animationDuration = 0.5;
+    [view startAnimation];
     
     // Do any additional setup after loading the view, typically from a nib.
 }

@@ -24,8 +24,7 @@
     if (self) {
         self.resourceArray = [NSMutableArray array];
         self.animationDuration = 4;
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(carouselAnimartion:) userInfo:nil repeats:YES];
-        [self.timer pauseTimer];
+        [self updateTimer];
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
         flowLayout.itemSize = self.bounds.size;
@@ -40,6 +39,15 @@
         self.collectionView.pagingEnabled = YES;
     }
     return self;
+}
+//public
+
+- (void)startAnimation{
+    if (_datas.count>1) {
+        [self.timer resumeTimerAfterTimeInterval:self.animationDuration];
+    }else{
+        [self.timer pauseTimer];
+    }
 }
 
 //setter
@@ -62,18 +70,34 @@
     [self reloadData];
 }
 
+- (void)setNonDataModel:(id)nonDataModel{
+    if (nonDataModel) {
+        _nonDataModel = nonDataModel;
+        [self updateResource];
+        [self reloadData];
+    }
+}
+
+- (void)setAnimationDuration:(NSTimeInterval)animationDuration{
+    if (animationDuration >= 0 && _animationDuration != animationDuration) {
+        _animationDuration = animationDuration;
+        [self updateTimer];
+    }
+}
+
 #pragma mark - private
+
+- (void)updateTimer{
+    [self.timer invalidate];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:self.animationDuration target:self selector:@selector(carouselAnimartion:) userInfo:nil repeats:YES];
+    [self.timer pauseTimer];
+}
 
 - (void)reloadData{
     if (_cellClass && _datas && [_datas isKindOfClass:[NSArray class]] && _datas.count) {
         [self.collectionView reloadData];
         if (_datas.count>1) {
             [self.collectionView setContentOffset:CGPointMake(self.collectionView.bounds.size.width, 0)];
-            //启动定时器
-            [self.timer resumeTimerAfterTimeInterval:self.animationDuration];
-        }else{
-            //不启动定时
-            [self.timer pauseTimer];
         }
     }
 }
@@ -86,14 +110,21 @@
         [self.resourceArray addObjectsFromArray:_datas];
         [self.resourceArray addObject:_datas.firstObject];
     }else{
-        [self.resourceArray addObject:self.nonDataModel];
+        if (_nonDataModel) {
+            [self.resourceArray addObject:self.nonDataModel];
+        }
     }
 }
 
 - (void)carouselAnimartion:(NSTimer *)timer{
-    NSArray * arr = [self.collectionView visibleCells];
-    NSIndexPath *indexPath = [self.collectionView indexPathForCell:arr.lastObject];
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.item+1 inSection:indexPath.section] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
+    int contentOffsetX = (int)self.collectionView.contentOffset.x;
+    NSInteger index = contentOffsetX/(int)self.collectionView.bounds.size.width;
+    if(index>=self.resourceArray.count-1){//动画时间<=0.3 时 的bug 处理
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
+    }else{
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index+1 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -106,7 +137,9 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    [self.timer resumeTimerAfterTimeInterval:self.animationDuration];
+    if (_datas.count>1){
+       [self.timer resumeTimerAfterTimeInterval:self.animationDuration];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -118,6 +151,7 @@
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    //旋转 方向时 不调用
     if (scrollView.contentOffset.x>=scrollView.bounds.size.width * (self.datas.count+1)) {
         [self.collectionView setContentOffset:CGPointMake(scrollView.bounds.size.width * (1), scrollView.contentOffset.y)];
     }
@@ -132,6 +166,11 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell<CellModel> * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(_cellClass) forIndexPath:indexPath];
     if ([cell respondsToSelector:@selector(setModel:)]) {
+        if (indexPath.item%2) {
+            cell.backgroundColor = [UIColor redColor];
+        }else{
+            cell.backgroundColor = [UIColor blueColor];
+        }
         [cell setModel:self.resourceArray[indexPath.row]];
     }
     return cell;

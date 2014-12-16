@@ -17,9 +17,13 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        static int a;
+        a++;
+        NSLog(@"%d",a);
         self.backgroundColor = [UIColor redColor];
         self.titleLabel = [[UILabel alloc]init];
-        self.titleLabel.frame = CGRectMake(0, 0, 100, 50);
+        self.titleLabel.frame = CGRectMake(10, 10, 400, 400);
+        self.titleLabel.font = [UIFont systemFontOfSize:210];
         [self.contentView addSubview:self.titleLabel];
     }
     return self;
