@@ -15,7 +15,7 @@
 @implementation CarouseCollectionViewCell
 
 - (instancetype)initWithFrame:(CGRect)frame{
-    self = [self initWithFrame:frame];
+    self = [super initWithFrame:frame];
     if (self) {
         self.titleLabel = [[UILabel alloc]init];
         self.titleLabel.frame = CGRectMake(0, 0, 100, 50);
@@ -26,8 +26,9 @@
 
 - (void)setTitle:(NSString *)title{
     if ([title isKindOfClass:[NSString class]]) {
-        [self updateInfo];
+        _title = title;
     }
+    [self updateInfo];
 }
 
 - (void)updateInfo{
