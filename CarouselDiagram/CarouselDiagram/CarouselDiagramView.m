@@ -106,11 +106,14 @@
 - (void)updateResource{
     [self.resourceArray removeAllObjects];
     
-    if (_datas.count) {
+    if (_datas.count>1) {
         [self.resourceArray addObject:_datas.lastObject];
         [self.resourceArray addObjectsFromArray:_datas];
         [self.resourceArray addObject:_datas.firstObject];
-    }else{
+    }else if(_datas.count){
+        [self.resourceArray addObjectsFromArray:_datas];
+    }
+    else{
         if (_nonDataModel) {
             [self.resourceArray addObject:self.nonDataModel];
         }
@@ -133,21 +136,38 @@
 //UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
+    NSLog(@"beginDragging offset:%f",scrollView.contentOffset.x);
+    if (scrollView.contentOffset.x>scrollView.bounds.size.width * (self.datas.count)) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+    }else if(scrollView.contentOffset.x<0){
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.datas.count inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+    }
     [self.timer pauseTimer];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    NSLog(@"endDragging offset:%f",scrollView.contentOffset.x);
+    if (scrollView.contentOffset.x>scrollView.bounds.size.width*_datas.count) {
+        CGFloat pageOffset = scrollView.contentOffset.x-((int)scrollView.contentOffset.x/(int)scrollView.bounds.size.width)*scrollView.bounds.size.width;
+        scrollView.contentOffset = CGPointMake(pageOffset, scrollView.contentOffset.y);
+    }else if (scrollView.contentOffset.x<scrollView.bounds.size.width){
+        CGFloat pageOffset = scrollView.contentOffset.x-((int)scrollView.contentOffset.x/(int)scrollView.bounds.size.width)*scrollView.bounds.size.width;
+        scrollView.contentOffset = CGPointMake(pageOffset + scrollView.bounds.size.width*_datas.count, scrollView.contentOffset.y);
+    }
     if (_datas.count>1){
        [self.timer resumeTimerAfterTimeInterval:self.animationDuration];
     }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView.contentOffset.x>scrollView.bounds.size.width * (self.datas.count+1)) {
+    if (scrollView.contentOffset.x>=scrollView.bounds.size.width * (self.datas.count+1)) {
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+        
+        NSLog(@"didScroll1 offset:%f",scrollView.contentOffset.x);
     }else if(scrollView.contentOffset.x<=0){
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.datas.count inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+        NSLog(@"didScroll2 offset:%f",scrollView.contentOffset.x);
     }
 }
 
@@ -165,13 +185,14 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"%ld",indexPath.row);
     UICollectionViewCell<CellModel> * cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(_cellClass) forIndexPath:indexPath];
     if ([cell respondsToSelector:@selector(setModel:)]) {
-        if (indexPath.item%2) {
-            cell.backgroundColor = [UIColor redColor];
-        }else{
-            cell.backgroundColor = [UIColor blueColor];
-        }
+//        if (indexPath.item%2) {
+//            cell.backgroundColor = [UIColor redColor];
+//        }else{
+//            cell.backgroundColor = [UIColor blueColor];
+//        }
         [cell setModel:self.resourceArray[indexPath.row]];
     }
     return cell;

@@ -19,17 +19,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CarouselDiagramView * view = [[CarouselDiagramView alloc]initWithFrame:self.view.bounds];
-    [self.view addSubview:view];
+    
+    UIScrollView * scrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
+    [self.view addSubview:scrollView];
+    [scrollView addSubview:view];
+    scrollView.pagingEnabled = YES;
+    
+    [scrollView setContentSize:CGSizeMake(self.view.bounds.size.width*2, self.view.bounds.size.height)];
     
     view.cellClass = [CarouseCollectionViewCell class];
     
     NSMutableArray *arr = [NSMutableArray array];
-    for (int i=0; i<10; i++) {
+    for (int i=0; i<2; i++) {
         [arr addObject:[NSString stringWithFormat:@"%d",i]];
     }
     view.datas = arr;
     view.nonDataModel = @"nodataModel";
-    view.animationDuration = 0.5;
+    view.animationDuration = 1000;
     [view startAnimation];
     
     // Do any additional setup after loading the view, typically from a nib.
