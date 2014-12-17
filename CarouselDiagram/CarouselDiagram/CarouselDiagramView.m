@@ -37,6 +37,7 @@
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
         self.collectionView.pagingEnabled = YES;
+        self.collectionView.showsHorizontalScrollIndicator = NO;
     }
     return self;
 }
@@ -174,6 +175,18 @@
         [cell setModel:self.resourceArray[indexPath.row]];
     }
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if(self.didSelectedIndex){
+        NSInteger index = indexPath.item -1;
+        if (index == -1) {
+            index = _datas.count-1;
+        }else if(index == _datas.count){
+            index = 0;
+        }
+        self.didSelectedIndex(index);
+    }
 }
 
 - (void)dealloc{

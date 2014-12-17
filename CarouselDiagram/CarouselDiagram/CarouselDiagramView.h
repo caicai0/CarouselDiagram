@@ -19,6 +19,7 @@
 @property (nonatomic, assign)NSTimeInterval animationDuration; //默认时间4s 因为与动画有关  时间不能 <=0.3s
 @property (nonatomic, assign)Class<CellModel> cellClass;
 @property (nonatomic, strong)id nonDataModel;
+@property (nonatomic, copy)void(^didSelectedIndex)(NSInteger index);
 
 - (void)startAnimation;//配置好后启动动画;
 
